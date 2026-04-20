@@ -9,7 +9,7 @@ import { Question, QuizData, ExamResult, SavedPaper, ReviewItem } from '../model
  */
 @Injectable({ providedIn: 'root' })
 export class QuizService {
-  private readonly EXAM_DURATION_SECONDS = 90 * 60;
+  private readonly EXAM_DURATION_SECONDS = 150 * 60;
   private readonly STORAGE_KEY = 'quiz_saved_papers';
 
   private questions: Question[] = [];
