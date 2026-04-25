@@ -47,6 +47,12 @@
   border-color: #22c55e;
 }
 
+.cell.review {
+  background: #a855f7;
+  color: #fff;
+  border-color: #a855f7;
+}
+
 .cell.unanswered {
   background: #f1f5f9;
   color: #64748b;
@@ -80,6 +86,10 @@
 
 .dot.answered {
   background: #22c55e;
+}
+
+.dot.review {
+  background: #a855f7;
 }
 
 .dot.unanswered {

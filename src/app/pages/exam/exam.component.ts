@@ -24,13 +24,14 @@ export class ExamComponent implements OnInit, OnDestroy {
   selectedOption = '';
   totalQuestions = 0;
   answeredSet = new Set<number>();
+  reviewSet = new Set<number>();
 
   private timerSub: Subscription | undefined;
 
   constructor(
     protected quizService: QuizService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.totalQuestions = this.quizService.getTotalQuestions();
@@ -62,6 +63,21 @@ export class ExamComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleReview(): void {
+    if (this.currentQuestion) {
+      const id = this.currentQuestion.id;
+      if (this.reviewSet.has(id)) {
+        this.reviewSet.delete(id);
+      } else {
+        this.reviewSet.add(id);
+      }
+    }
+  }
+
+  isMarkedForReview(): boolean {
+    return this.currentQuestion ? this.reviewSet.has(this.currentQuestion.id) : false;
+  }
+
   /**
    * Maps option index (0-3) to letter (A-D).
    */
@@ -90,11 +106,12 @@ export class ExamComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Formats remaining seconds as MM:SS for display.
+   * Formats remaining seconds as HH:MM:SS for display.
    */
   formatTime(seconds: number): string {
-    const m = Math.floor(seconds / 60);
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    return `${h} H : ${m.toString().padStart(2, '0')} M : ${s.toString().padStart(2, '0')} S`;
   }
 }

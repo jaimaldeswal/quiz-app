@@ -16,6 +16,7 @@ export class QuestionPaletteComponent {
   @Input() totalQuestions = 0;
   @Input() currentIndex = 0;
   @Input() answeredSet = new Set<number>();
+  @Input() reviewSet = new Set<number>();
   @Output() navigate = new EventEmitter<number>();
 
   /**
@@ -28,6 +29,9 @@ export class QuestionPaletteComponent {
   getState(index: number): string {
     if (index === this.currentIndex) {
       return 'current';
+    }
+    if (this.reviewSet.has(index + 1)) {
+      return 'review';
     }
     if (this.answeredSet.has(index + 1)) {
       return 'answered';
